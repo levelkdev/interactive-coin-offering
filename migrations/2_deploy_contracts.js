@@ -1,8 +1,15 @@
-var ConvertLib = artifacts.require("./ConvertLib.sol");
-var MetaCoin = artifacts.require("./MetaCoin.sol");
+/* global artifacts */
 
-module.exports = function(deployer) {
-  deployer.deploy(ConvertLib);
-  deployer.link(ConvertLib, MetaCoin);
-  deployer.deploy(MetaCoin);
-};
+const moment = require('moment')
+
+const InteractiveCrowdsale = artifacts.require('InteractiveCrowdsale')
+
+module.exports = function (deployer) {
+  const oneMonthFromNow = moment().add(1, 'month')
+  const withdrawLockThreshold = oneMonthFromNow.unix()
+
+  deployer.deploy(
+    InteractiveCrowdsale,
+    withdrawLockThreshold
+  )
+}
