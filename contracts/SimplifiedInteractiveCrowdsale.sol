@@ -1,8 +1,7 @@
 pragma solidity ^0.4.15;
 
-import './MintableToken.sol';
+import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 import './BasicCrowdsale.sol';
-import './Ownable.sol';
 
 contract SimplifiedInteractiveCrowdsale is BasicCrowdsale, Ownable {
 
