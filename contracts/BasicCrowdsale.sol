@@ -1,7 +1,7 @@
 pragma solidity ^0.4.11;
 
-import './MintableToken.sol';
-import './SafeMath.sol';
+import 'zeppelin-solidity/contracts/token/MintableToken.sol';
+import 'zeppelin-solidity/contracts/math/SafeMath.sol';
 
 
 contract BasicCrowdsale {
@@ -20,9 +20,6 @@ contract BasicCrowdsale {
   // how many token units a buyer gets per wei
   uint256 public rate;
 
-  // amount of raised money in wei
-  uint256 public weiRaised;
-
   /**
    * event for token purchase logging
    * @param purchaser who paid for the tokens
@@ -31,7 +28,6 @@ contract BasicCrowdsale {
    * @param amount amount of tokens purchased
    */
   event TokenPurchase(address indexed purchaser, address indexed beneficiary, uint256 value, uint256 amount);
-
 
   function BasicCrowdsale(uint256 _startTime, uint256 _endTime, uint256 _rate, address _wallet) {
     require(_startTime >= now);
@@ -50,12 +46,6 @@ contract BasicCrowdsale {
   // override this method to have crowdsale of a specific mintable token.
   function createTokenContract() internal returns (MintableToken) {
     return new MintableToken();
-  }
-
-  // send ether to the fund collection wallet
-  // override to create custom fund forwarding mechanisms
-  function forwardFunds() internal {
-    wallet.transfer(msg.value);
   }
 
   // @return true if the transaction can buy tokens
